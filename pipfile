@@ -1,0 +1,8 @@
+[packages]
+django = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+django-extensions = "*"
+
+[requires]
+python_version = "3.8"
