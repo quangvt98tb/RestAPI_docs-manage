@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from Project.models import Document, User
+from Project.models import Document, User, UserShare, RoleShare, RoleUser, Category, Comment
 
 # Định nghĩa model cần serialize và các trường:
 
@@ -9,15 +9,22 @@ class DocumentListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        # ko dùng đến updated và created
-        fields = ('id', 'title', 'content', 'id_user')
+        fields = ('id', 'title', 'content', 'id_author', 'category_id', 'update_last_by',
+                  'is_deleted', 'created', 'updated')
+
+
+class UserIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id']
 
 
 class UserSerialize(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'password']
+        fields = ['id', 'email', 'password', 'role_id',
+                  'first_name', 'last_name', 'phone', 'live_at']
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -28,10 +35,33 @@ class PasswordSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
 
-class UserDetailSerialize(serializers.HyperlinkedModelSerializer):
+class UserDetailSerialize(serializers.ModelSerializer):
+
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'phone', 'live_at')
+        fields = ['id', 'email', 'first_name',
+                  'last_name', 'role_id', 'phone', 'live_at']
+
+
+class CategorySerialize(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name_category']
+
+
+class CommentSerialize(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'id_user', 'id_doc', 'comment']
+
+
+class UserShareSerialize(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserShare
+        fields = ['id', 'id_usershare', 'id_doc', 'id_role']
 
 
 class UserLoginSerializer(serializers.Serializer):

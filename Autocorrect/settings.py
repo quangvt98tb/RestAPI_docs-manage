@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'django_filters',
     'Project'
 ]
@@ -54,13 +55,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # CORS
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
-# CORS_ORIGIN_ALLOW_ALL = False
 
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:8081',
-# )
+ALL_HOST = ["*"]
+CORS_ORIGIN_ALLOW_ALL = True
+
 ROOT_URLCONF = 'Autocorrect.urls'
 
 AUTH_USER_MODEL = 'Project.User'
@@ -88,11 +88,21 @@ WSGI_APPLICATION = 'Autocorrect.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'project_text',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    #     'OPTIONS': {
+    #         'sql_mode': 'traditional',
+    #     }
+    # }
+
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'project',
-        'HOST': '127.0.0.1',
-        'PORT': 27017,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
