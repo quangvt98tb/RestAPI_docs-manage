@@ -1,0 +1,51 @@
+<template>
+  <client-only>
+    <div class="app">
+      <div>
+        <section class="navi">
+          <the-nav />
+        </section>
+      </div>
+      <div class="columns">
+        <section class="column is-one-fifth">
+          <TheNavAdmin />
+        </section>
+
+        <section class="column is-three-quarters container">
+          <br />
+          <nuxt />
+        </section>
+      </div>
+      <the-footer />
+    </div>
+  </client-only>
+</template>
+
+<script>
+import TheNav from "@/components/TheNav";
+import TheFooter from "@/components/TheFooter";
+import TheNavAdmin from "@/components/Admin/TheNavAdmin";
+export default {
+  components: { TheNav, TheFooter, TheNavAdmin },
+  head() {
+    return {
+      htmlAttrs: {
+        class: [
+          "has-aside-left",
+          "has-aside-mobile-transition",
+          "has-aside-expanded",
+        ],
+      },
+    };
+  },
+};
+</script>
+
+<style scoped>
+.app {
+  background-color: #f0f3f3;
+}
+.navi {
+  margin-top: 7px;
+}
+</style>
